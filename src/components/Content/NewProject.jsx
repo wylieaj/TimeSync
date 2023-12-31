@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Button from "../Buttons/Button";
 import Input from "../Inputs/Input";
 
-const NewProject = ({ addProject }) => {
+const NewProject = ({ addProject, cancelProject }) => {
   const nameRef = useRef();
   const startDateRef = useRef();
   const customerRef = useRef();
@@ -46,6 +46,9 @@ const NewProject = ({ addProject }) => {
       </div>
       <div className="flex justify-center gap-24 mt-16">
         <Button buttonLabel="Submit" func={submitProject} />
+        <button onClick={cancelProject} className="text-lg text-stone-700 hover:text-red-600">
+          Cancel
+        </button>
       </div>
     </section>
   );

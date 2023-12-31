@@ -53,6 +53,15 @@ const App = () => {
     });
   };
 
+  const cancelNewProject = () => {
+    setState((prevState) => {
+      return {
+        ...prevState,
+        contentState: null,
+      };
+    });
+  };
+
   const addProject = (projectData) => {
     setState((prevState) => {
       return {
@@ -69,7 +78,7 @@ const App = () => {
   if (state.contentState === null) {
     content = <NoProjectSelected func={handleNewProject} />;
   } else if (state.contentState === undefined) {
-    content = <NewProject addProject={addProject} />;
+    content = <NewProject addProject={addProject} cancelProject={cancelNewProject} />;
   }
 
   return (
