@@ -7,9 +7,15 @@ const Input = forwardRef(function Input({ labelName = "placeholder", inputLink =
         {labelName}
       </label>
       {isTextArea ? (
-        <textarea id={inputLink} ref={ref} className="bg-stone-200 p-2 outline-none rounded-md w-[36rem] h-[12rem] text-stone-700 text-lg focus:border-b-[1px] focus:border-stone-700" />
+        <textarea id={inputLink} ref={ref} className="bg-stone-200 shadow-md p-2 outline-none rounded-md w-[36rem] h-[12rem] text-stone-700 text-lg focus:border-b-[1px] focus:border-stone-700" />
       ) : (
-        <input id={inputLink} ref={ref} type="text" {...props} className="bg-stone-200 p-2 outline-none rounded-md w-[20rem] text-stone-700 text-lg focus:border-b-[1px] focus:border-stone-700" />
+        <input
+          id={inputLink}
+          ref={ref}
+          type="text"
+          {...props}
+          className="bg-stone-200 shadow-md p-2 outline-none rounded-md w-[20rem] text-stone-700 text-lg focus:border-b-[1px] focus:border-stone-700"
+        />
       )}
     </p>
   );
