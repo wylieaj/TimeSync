@@ -1,9 +1,10 @@
 import { useState } from "react";
 import SideBar from "./components/SideBar/SideBar";
 import NoProjectSelected from "./components/Content/NoProjectSelected";
+import NewProject from "./components/Content/NewProject";
 
 const initState = {
-  contentState: undefined,
+  contentState: null,
   projects: [
     {
       id: 0.7829266150783314,
@@ -43,16 +44,27 @@ const initState = {
 const App = () => {
   const [state, setState] = useState(initState);
 
+  const handleNewProject = () => {
+    setState((prevState) => {
+      return {
+        ...prevState,
+        contentState: undefined,
+      };
+    });
+  };
+
   let content = "";
-  if (state.contentState === undefined) {
-    content = <NoProjectSelected />;
+  if (state.contentState === null) {
+    content = <NoProjectSelected addNewProjectFunc={handleNewProject} />;
+  } else if (state.contentState === undefined) {
+    content = <NewProject />;
   }
 
   return (
     <div
       className="flex
     ">
-      <SideBar projectList={state.projects} />
+      <SideBar projectList={state.projects} addNewProjectFunc={handleNewProject} />
       {content}
     </div>
   );
