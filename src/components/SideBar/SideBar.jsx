@@ -1,5 +1,4 @@
 const SideBar = ({ projectList }) => {
-  console.log(projectList);
   return (
     <aside className="w-[20rem] h-screen bg-stone-200 shadow-2xl">
       <div className="flex flex-col gap-2 justify-center items-center">

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SideBar from "./components/SideBar/SideBar";
+import NoProjectSelected from "./components/Content/NoProjectSelected";
 
 const initState = {
   contentState: undefined,
@@ -42,9 +43,17 @@ const initState = {
 const App = () => {
   const [state, setState] = useState(initState);
 
+  let content = "";
+  if (state.contentState === undefined) {
+    content = <NoProjectSelected />;
+  }
+
   return (
-    <div>
+    <div
+      className="flex
+    ">
       <SideBar projectList={state.projects} />
+      {content}
     </div>
   );
 };
