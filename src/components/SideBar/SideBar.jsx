@@ -1,14 +1,14 @@
-const SideBar = ({ projectList, addNewProjectFunc }) => {
+import Button from "../Buttons/Button.jsx";
+
+const SideBar = ({ projectList, func }) => {
   return (
     <aside className="w-[20rem] h-screen bg-stone-200 shadow-2xl">
       <div className="flex flex-col gap-2 justify-center items-center">
-        <h2 className="text-3xl pt-8 uppercase text-stone-700 font-semibold">Projects</h2>
-        <div className=" flex flex-col mt-4 gap-2 text-center">
-          <button onClick={addNewProjectFunc} className="py-2 px-8 rounded-md bg-stone-300 text-xl hover:bg-stone-400 hover:text-stone-700">
-            &#43;
-          </button>
-          <p className="text-stone-400">New project</p>
-        </div>
+        <h2 className="text-3xl pt-8 font-semibold">
+          <span className="text-stone-400">Time</span>
+          <span className="text-stone-600">Sync</span>
+        </h2>
+        <Button buttonLabel="Create" func={func} />
       </div>
 
       {projectList <= 0 ? (
@@ -17,7 +17,7 @@ const SideBar = ({ projectList, addNewProjectFunc }) => {
         <ul className="flex flex-col gap-4 mt-16">
           {projectList.map((project) => {
             return (
-              <button key={project.id} className="text-lg text-stone-500 hover:text-stone-900 focus:text-stone-900">
+              <button key={project.id} className="text-lg text-stone-500 hover:text-stone-900 focus:text-stone-900 focus:font-bold">
                 {project.name}
               </button>
             );

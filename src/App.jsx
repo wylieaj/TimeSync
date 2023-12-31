@@ -53,18 +53,30 @@ const App = () => {
     });
   };
 
+  const addProject = (projectData) => {
+    setState((prevState) => {
+      return {
+        ...prevState,
+        projects: [...prevState.projects, { id: Math.random(), ...projectData }],
+
+        contentState: null,
+      };
+    });
+    setState;
+  };
+
   let content = "";
   if (state.contentState === null) {
-    content = <NoProjectSelected addNewProjectFunc={handleNewProject} />;
+    content = <NoProjectSelected func={handleNewProject} />;
   } else if (state.contentState === undefined) {
-    content = <NewProject />;
+    content = <NewProject addProject={addProject} />;
   }
 
   return (
     <div
       className="flex
     ">
-      <SideBar projectList={state.projects} addNewProjectFunc={handleNewProject} />
+      <SideBar projectList={state.projects} func={handleNewProject} />
       {content}
     </div>
   );
