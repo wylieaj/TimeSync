@@ -1,23 +1,29 @@
 import Button from "../Buttons/Button.jsx";
 
-const SideBar = ({ projectList, func }) => {
+const SideBar = ({ allProjects, selectProjectFunc, func }) => {
   return (
-    <aside className="w-[20rem] h-screen bg-stone-200 shadow-2xl">
+    <aside className="w-[20rem] h-screen bg-stone-200 shadow-md">
       <div className="flex flex-col gap-2 justify-center items-center">
         <h2 className="text-3xl pt-8 font-semibold">
           <span className="text-stone-400">Time</span>
           <span className="text-stone-600">Sync</span>
         </h2>
-        <Button buttonLabel="Create" func={func} />
+        <Button buttonLabel="+" func={func} />
       </div>
 
-      {projectList <= 0 ? (
+      {allProjects.projects <= 0 ? (
         <p className="mt-16 text-center text-xl text-stone-700">No projects found</p>
       ) : (
         <ul className="flex flex-col gap-4 mt-16">
-          {projectList.map((project) => {
+          {allProjects.projects.map((project) => {
+            let projectClass = "";
+            if (allProjects.contentState === project.id) {
+              projectClass = "text-lg text-stone-700 font-bold hover:text-stone-900";
+            } else {
+              projectClass = "text-lg text-stone-500 hover:text-stone-900";
+            }
             return (
-              <button key={project.id} className="text-lg text-stone-500 hover:text-stone-900 focus:text-stone-900 focus:font-bold">
+              <button key={project.id} onClick={() => selectProjectFunc(project)} className={projectClass}>
                 {project.name}
               </button>
             );

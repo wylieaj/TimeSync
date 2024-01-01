@@ -10,7 +10,7 @@ const NoProjectSelected = ({ func }) => {
         <h2 className="mt-8 text-3xl text-stone-300">No project selected</h2>
         <p className="text-xl text-stone-300">Select an existing project or create a new project.</p>
         <div>
-          <Button buttonLabel="Create" func={func} />
+          <Button buttonLabel="Create a new project" func={func} />
         </div>
       </div>
     </section>

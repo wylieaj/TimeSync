@@ -2,6 +2,7 @@ import { useState } from "react";
 import SideBar from "./components/SideBar/SideBar";
 import NoProjectSelected from "./components/Content/NoProjectSelected";
 import NewProject from "./components/Content/NewProject";
+import SelectedProject from "./components/Content/SelectedProject";
 
 const initState = {
   contentState: null,
@@ -63,15 +64,25 @@ const App = () => {
   };
 
   const addProject = (projectData) => {
+    const prodId = Math.random();
     setState((prevState) => {
       return {
         ...prevState,
-        projects: [...prevState.projects, { id: Math.random(), ...projectData }],
+        projects: [...prevState.projects, { id: prodId, ...projectData }],
 
-        contentState: null,
+        contentState: prodId,
       };
     });
     setState;
+  };
+
+  const displayProject = (selectedProject) => {
+    setState((prevState) => {
+      return {
+        ...prevState,
+        contentState: selectedProject.id,
+      };
+    });
   };
 
   let content = "";
@@ -79,13 +90,15 @@ const App = () => {
     content = <NoProjectSelected func={handleNewProject} />;
   } else if (state.contentState === undefined) {
     content = <NewProject addProject={addProject} cancelProject={cancelNewProject} />;
+  } else if (state.contentState !== null || state.contentState !== undefined) {
+    content = <SelectedProject projectObj={state.projects.find((project) => project.id === state.contentState)} />;
   }
 
   return (
     <div
       className="flex
     ">
-      <SideBar projectList={state.projects} func={handleNewProject} />
+      <SideBar allProjects={state} selectProjectFunc={displayProject} func={handleNewProject} />
       {content}
     </div>
   );
