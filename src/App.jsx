@@ -6,44 +6,28 @@ import SelectedProject from "./components/Content/SelectedProject";
 
 const initState = {
   contentState: null,
-  projects: [
-    {
-      id: 0.7829266150783314,
-      name: "Castle Hotel Implementation",
-      description: "Install POS system for Castle Hotel group",
-      customer: "Castle Hotel",
-      custDossier: "CAS-POS-001",
-      projectStartDate: "2023-12-01",
-    },
-    {
-      id: 0.3829266150783314,
-      name: "Maggie's Implementation",
-      description: "Install POS system for Maggie's group",
-      customer: "Maggies",
-      custDossier: "MAG-POS-001",
-      projectStartDate: "2023-12-02",
-    },
-  ],
-  entries: [
-    {
-      projectId: 0.7829266150783314,
-      id: 0.08482627039725354,
-      actionDate: "2023-12-01",
-      actionCompleted: "Installed server",
-      hoursSpent: 6,
-    },
-    {
-      projectId: 0.7829266150783314,
-      id: 0.07482627039725354,
-      actionDate: "2023-12-02",
-      actionCompleted: "Provided training to staff",
-      hoursSpent: 2,
-    },
-  ],
+  projects: [],
+  timesheets: [],
 };
 
 const App = () => {
   const [state, setState] = useState(initState);
+
+  const addTimesheetEntry = (timesheetData) => {
+    const id = Math.random();
+
+    setState((prevState) => {
+      const newTimesheet = {
+        id: id,
+        projectId: prevState.contentState,
+        ...timesheetData,
+      };
+      return {
+        ...prevState,
+        timesheets: [...prevState.timesheets, newTimesheet],
+      };
+    });
+  };
 
   const handleNewProject = () => {
     setState((prevState) => {
@@ -91,7 +75,13 @@ const App = () => {
   } else if (state.contentState === undefined) {
     content = <NewProject addProject={addProject} cancelProject={cancelNewProject} />;
   } else if (state.contentState !== null || state.contentState !== undefined) {
-    content = <SelectedProject projectObj={state.projects.find((project) => project.id === state.contentState)} />;
+    content = (
+      <SelectedProject
+        projectObj={state.projects.find((project) => project.id === state.contentState)}
+        timesheetObj={state.timesheets.filter((timesheet) => timesheet.projectId === state.contentState)}
+        addTimesheet={addTimesheetEntry}
+      />
+    );
   }
 
   return (

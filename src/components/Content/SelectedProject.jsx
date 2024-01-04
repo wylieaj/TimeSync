@@ -1,4 +1,7 @@
-const SelectedProject = ({ projectObj }) => {
+import { useRef, useState } from "react";
+import Timesheets from "../Timesheets/Timesheets";
+
+const SelectedProject = ({ projectObj, timesheetObj, addTimesheet }) => {
   const formattedDate = new Date(projectObj.projectStartDate).toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "long",
@@ -22,6 +25,7 @@ const SelectedProject = ({ projectObj }) => {
           <p className="text-lg text-stone-400 whitespace-pre-wrap">{projectObj.description} </p>
         </div>
       </div>
+      <Timesheets timesheetObj={timesheetObj} addTimesheet={addTimesheet} />
     </section>
   );
 };

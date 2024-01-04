@@ -8,11 +8,11 @@ const SideBar = ({ allProjects, selectProjectFunc, func }) => {
           <span className="text-stone-400">Time</span>
           <span className="text-stone-600">Sync</span>
         </h2>
-        <Button buttonLabel="+" func={func} />
+        <Button buttonLabel="Create a new project" func={func} />
       </div>
 
       {allProjects.projects <= 0 ? (
-        <p className="mt-16 text-center text-xl text-stone-700">No projects found</p>
+        <p className="mt-16 text-center text-md text-stone-700">No projects found</p>
       ) : (
         <ul className="flex flex-col gap-4 mt-16">
           {allProjects.projects.map((project) => {
