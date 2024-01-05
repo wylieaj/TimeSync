@@ -2,8 +2,7 @@ import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const TimesheetInput = ({ addTimesheet }) => {
-  const [isError, setIsError] = useState(false);
+const TimesheetInput = ({ addTimesheet, isErrorFunc, isError }) => {
   const [input, setInput] = useState({
     date: "",
     action: "",
@@ -36,10 +35,10 @@ const TimesheetInput = ({ addTimesheet }) => {
 
     if (dateEnt.trim() !== "" && actionEnt.trim() !== "" && hoursEnt.trim() !== "") {
       addTimesheet(timesheetData);
-      setIsError(false);
+      isErrorFunc(false);
       setInput({ date: "", action: "", hours: "" });
     } else {
-      setIsError(true);
+      isErrorFunc(true);
     }
   };
 

@@ -1,12 +1,24 @@
 import TimesheetInput from "./TimesheetInput";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 const Timesheets = ({ timesheetObj, addTimesheet, deleteTimesheet }) => {
+  const [isError, setIsError] = useState(false);
+  const handleDeleteTimesheet = (timesheetId) => {
+    setIsError(false);
+    deleteTimesheet(timesheetId);
+  };
+
+  const updateIsError = (error) => {
+    setIsError(error);
+  };
+
   return (
     <>
       <div className="">
-        <TimesheetInput addTimesheet={addTimesheet} />
+        <TimesheetInput addTimesheet={addTimesheet} isErrorFunc={updateIsError} isError={isError} />
       </div>
 
       <div className={timesheetObj.length > 12 ? "overflow-y-scroll max-h-[31rem]" : "pr-4 "}>
@@ -33,7 +45,7 @@ const Timesheets = ({ timesheetObj, addTimesheet, deleteTimesheet }) => {
                   <button className="">
                     <FontAwesomeIcon
                       onClick={() => {
-                        deleteTimesheet(ts.id);
+                        handleDeleteTimesheet(ts.id);
                       }}
                       icon={faTrash}
                       style={{ color: "#44403c" }}
