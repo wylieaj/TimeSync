@@ -9,7 +9,7 @@ const Timesheets = ({ timesheetObj, addTimesheet, deleteTimesheet }) => {
         <TimesheetInput addTimesheet={addTimesheet} />
       </div>
 
-      <div className={timesheetObj.length > 11 ? "overflow-y-scroll max-h-[29rem]" : "pr-4"}>
+      <div className={timesheetObj.length > 12 ? "overflow-y-scroll max-h-[31rem]" : "pr-4"}>
         {timesheetObj.length > 0 &&
           timesheetObj.map((ts) => {
             const formattedDate = new Date(ts.date).toLocaleDateString("en-GB", {

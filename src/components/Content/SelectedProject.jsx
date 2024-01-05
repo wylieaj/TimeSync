@@ -11,7 +11,7 @@ const SelectedProject = ({ projectObj, timesheetObj, addTimesheet, deleteTimeshe
   return (
     <section className="w-2/4 mt-8 ml-8">
       <div className="border-b-2">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-stone-400">Project name</p>
             <h1 className="text-3xl text-stone-700 font-bold">{projectObj.name}</h1>
@@ -22,7 +22,7 @@ const SelectedProject = ({ projectObj, timesheetObj, addTimesheet, deleteTimeshe
           </div>
         </div>
 
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-stone-400">Customer</p>
             <p className="text-xl text-stone-700 font-bold">{projectObj.customer}</p>
