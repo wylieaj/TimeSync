@@ -4,7 +4,7 @@ const Timesheets = ({ timesheetObj, addTimesheet }) => {
   return (
     <>
       <TimesheetInput addTimesheet={addTimesheet} />
-      <div>
+      <div className={timesheetObj.length > 10 ? "overflow-y-scroll max-h-[29rem]" : ""}>
         {timesheetObj.length > 0 &&
           timesheetObj.map((ts) => {
             return (
