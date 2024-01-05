@@ -6,8 +6,26 @@ import SelectedProject from "./components/Content/SelectedProject";
 
 const initState = {
   contentState: null,
-  projects: [],
-  timesheets: [],
+  projects: [
+    {
+      id: 123456789,
+      name: "projectName",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Netus et malesuada fames ac turpis. Condimentum id venenatis a condimentum vitae sapien pellentesque habitant. Et magnis dis parturient montes nascetur ridiculus mus. Gravida in fermentum et sollicitudin ac. ",
+      customer: "projectCustomer",
+      custDossier: "projectDossier",
+      projectStartDate: "2022-11-01",
+    },
+  ],
+  timesheets: [
+    {
+      id: 987654321,
+      projectId: 123456789,
+      date: "2022-11-20",
+      action: "Installed server",
+      hours: "8",
+    },
+  ],
 };
 
 const App = () => {
