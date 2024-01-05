@@ -7,21 +7,18 @@ const NewProject = ({ addProject, cancelProject }) => {
   const startDateRef = useRef();
   const customerRef = useRef();
   const dossierRef = useRef();
-  const descriptionRef = useRef();
 
   const submitProject = () => {
     const projectName = nameRef.current.value;
     const projectStartDate = startDateRef.current.value;
     const projectCustomer = customerRef.current.value;
     const projectDossier = dossierRef.current.value;
-    const projectDescription = descriptionRef.current.value;
 
     if (projectName === "" || projectCustomer === "" || projectDescription === "" || projectDossier === "" || projectStartDate === "") {
       console.log("ERROR, all fields must be filled");
     } else {
       const projectData = {
         name: projectName,
-        description: projectDescription,
         customer: projectCustomer,
         custDossier: projectDossier,
         projectStartDate: projectStartDate,
@@ -40,9 +37,6 @@ const NewProject = ({ addProject, cancelProject }) => {
       <div className="flex justify-center gap-24 mt-8">
         <Input labelName="Customer" inputLink="customer" ref={customerRef} />
         <Input labelName="Dossier" inputLink="custDossier" ref={dossierRef} />
-      </div>
-      <div className="flex justify-center gap-24 mt-8">
-        <Input labelName="Project Description" inputLink="description" isTextArea ref={descriptionRef} />
       </div>
       <div className="flex justify-center gap-24 mt-16">
         <Button buttonLabel="Submit" func={submitProject} />

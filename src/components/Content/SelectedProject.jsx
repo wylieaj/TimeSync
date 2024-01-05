@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Timesheets from "../Timesheets/Timesheets";
 
-const SelectedProject = ({ projectObj, timesheetObj, addTimesheet }) => {
+const SelectedProject = ({ projectObj, timesheetObj, addTimesheet, deleteTimesheet }) => {
   const formattedDate = new Date(projectObj.projectStartDate).toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "short",
@@ -10,7 +10,7 @@ const SelectedProject = ({ projectObj, timesheetObj, addTimesheet }) => {
 
   return (
     <section className="w-2/4 mt-8 ml-8">
-      <div className="border-b-2 pb-8">
+      <div className="border-b-2">
         <div className="flex items-center justify-between mb-8">
           <div>
             <p className="text-stone-400">Project name</p>
@@ -32,15 +32,8 @@ const SelectedProject = ({ projectObj, timesheetObj, addTimesheet }) => {
             <p className="text-lg text-stone-700 mb-2 font-bold">{projectObj.custDossier}</p>
           </div>
         </div>
-        <div className="">
-          <div>
-            <h2 className=" text-stone-400 ">Project Description</h2>
-            <p className="text-xl text-stone-700 whitespace-pre-wrap font-bold">{projectObj.description} </p>
-          </div>
-        </div>
-        <div></div>
       </div>
-      <Timesheets timesheetObj={timesheetObj} addTimesheet={addTimesheet} />
+      <Timesheets timesheetObj={timesheetObj} addTimesheet={addTimesheet} deleteTimesheet={deleteTimesheet} />
     </section>
   );
 };

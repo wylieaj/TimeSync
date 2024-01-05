@@ -9,11 +9,9 @@ const initState = {
   projects: [
     {
       id: 123456789,
-      name: "projectName",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Netus et malesuada fames ac turpis. Condimentum id venenatis a condimentum vitae sapien pellentesque habitant. Et magnis dis parturient montes nascetur ridiculus mus. Gravida in fermentum et sollicitudin ac. ",
-      customer: "projectCustomer",
-      custDossier: "projectDossier",
+      name: "Westfield Simphony Implementation",
+      customer: "Westfield Group",
+      custDossier: "WEST-POS-001",
       projectStartDate: "2022-11-01",
     },
   ],
@@ -33,7 +31,6 @@ const App = () => {
 
   const addTimesheetEntry = (timesheetData) => {
     const id = Math.random();
-
     setState((prevState) => {
       const newTimesheet = {
         id: id,
@@ -43,6 +40,15 @@ const App = () => {
       return {
         ...prevState,
         timesheets: [...prevState.timesheets, newTimesheet],
+      };
+    });
+  };
+
+  const deleteTimesheetEntry = (timesheetId) => {
+    setState((prevState) => {
+      return {
+        ...prevState,
+        timesheets: prevState.timesheets.filter((ts) => timesheetId !== ts.id),
       };
     });
   };
@@ -98,6 +104,7 @@ const App = () => {
         projectObj={state.projects.find((project) => project.id === state.contentState)}
         timesheetObj={state.timesheets.filter((timesheet) => timesheet.projectId === state.contentState)}
         addTimesheet={addTimesheetEntry}
+        deleteTimesheet={deleteTimesheetEntry}
       />
     );
   }
