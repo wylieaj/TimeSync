@@ -18,7 +18,7 @@ const SideBar = ({ allProjects, selectProjectFunc, func }) => {
           {allProjects.projects.map((project) => {
             let projectClass = "";
             if (allProjects.contentState === project.id) {
-              projectClass = "text-lg text-stone-700 font-bold hover:text-stone-900";
+              projectClass = "text-lg text-stone-700 font-bold hover:text-stone-900 text-wrap";
             } else {
               projectClass = "text-lg text-stone-500 hover:text-stone-900";
             }

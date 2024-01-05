@@ -9,24 +9,24 @@ const Timesheets = ({ timesheetObj, addTimesheet, deleteTimesheet }) => {
         <TimesheetInput addTimesheet={addTimesheet} />
       </div>
 
-      <div className={timesheetObj.length > 12 ? "overflow-y-scroll max-h-[31rem]" : "pr-4"}>
-        {timesheetObj.length > 0 &&
+      <div className={timesheetObj.length > 12 ? "overflow-y-scroll max-h-[31rem]" : "pr-4 "}>
+        {timesheetObj.length > 0 ? (
           timesheetObj.map((ts) => {
             const formattedDate = new Date(ts.date).toLocaleDateString("en-GB", {
               day: "2-digit",
-              month: "numeric",
+              month: "2-digit",
               year: "numeric",
             });
             return (
-              <div key={ts.id} className="flex items-center w-12/12 gap-10 text-stone-700 pb-2 mb-2 border-b-2 border-stone-200">
-                <div className="text-nowrap pr-12">
-                  <h2 className=" pl-1">{formattedDate}</h2>
+              <div key={ts.id} className="flex items-center w-12/12 gap-10 text-stone-700 pb-2 mb-2 border-b-2 border-stone-200 text-sm">
+                <div className="text-nowrap pr-9">
+                  <h2 className="">{formattedDate}</h2>
                 </div>
                 <div className="w-full">
-                  <p className="pl-1 w-full max-w-full text-wrap">{ts.action}</p>
+                  <p className="w-full max-w-full text-wrap">{ts.action}</p>
                 </div>
                 <div>
-                  <h2 className="pl-1">{ts.hours}</h2>
+                  <h2 className="">{ts.hours}</h2>
                 </div>
 
                 <div className="mr-4">
@@ -36,12 +36,18 @@ const Timesheets = ({ timesheetObj, addTimesheet, deleteTimesheet }) => {
                         deleteTimesheet(ts.id);
                       }}
                       icon={faTrash}
+                      style={{ color: "#44403c" }}
                     />
                   </button>
                 </div>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className="flex justify-center">
+            <p className="text-xl text-stone-400">Use the fields above to add to this timesheet.</p>
+          </div>
+        )}
       </div>
     </>
   );

@@ -16,7 +16,7 @@ const SelectedProject = ({ projectObj, timesheetObj, addTimesheet, deleteTimeshe
             <p className="text-stone-400">Project name</p>
             <h1 className="text-3xl text-stone-700 font-bold">{projectObj.name}</h1>
           </div>
-          <div className="flex flex-col items-end">
+          <div className="flex flex-col items-end w-1/3">
             <p className="text-stone-400">Start date of project</p>
             <p className="text-xl text-stone-700 font-bold ">{formattedDate}</p>
           </div>

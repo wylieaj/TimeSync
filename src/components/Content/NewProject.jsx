@@ -1,8 +1,10 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Button from "../Buttons/Button";
 import Input from "../Inputs/Input";
 
 const NewProject = ({ addProject, cancelProject }) => {
+  const [isError, setIsError] = useState(false);
+
   const nameRef = useRef();
   const startDateRef = useRef();
   const customerRef = useRef();
@@ -14,9 +16,10 @@ const NewProject = ({ addProject, cancelProject }) => {
     const projectCustomer = customerRef.current.value;
     const projectDossier = dossierRef.current.value;
 
-    if (projectName === "" || projectCustomer === "" || projectDescription === "" || projectDossier === "" || projectStartDate === "") {
-      console.log("ERROR, all fields must be filled");
+    if (projectName === "" || projectCustomer === "" || projectDossier === "" || projectStartDate === "") {
+      setIsError(true);
     } else {
+      setIsError(false);
       const projectData = {
         name: projectName,
         customer: projectCustomer,
@@ -30,15 +33,20 @@ const NewProject = ({ addProject, cancelProject }) => {
 
   return (
     <section className="w-2/3 my-auto">
-      <div className="flex justify-center gap-24">
+      <div className="flex justify-center gap-24 mb-8">
         <Input labelName="Project Name" inputLink="name" ref={nameRef} />
         <Input labelName="Start Date" inputLink="projectStartDate" type="date" ref={startDateRef} />
       </div>
-      <div className="flex justify-center gap-24 mt-8">
+      <div className="flex justify-center gap-24 mb-8">
         <Input labelName="Customer" inputLink="customer" ref={customerRef} />
         <Input labelName="Dossier" inputLink="custDossier" ref={dossierRef} />
       </div>
-      <div className="flex justify-center gap-24 mt-16">
+      {isError && (
+        <div className="flex justify-center my-2">
+          <p className="text-red-500 text-sm">Please ensure all fields are complete.</p>
+        </div>
+      )}
+      <div className="flex justify-center gap-24 mt-8">
         <Button buttonLabel="Submit" func={submitProject} />
         <button onClick={cancelProject} className="text-lg text-stone-700 hover:text-red-600">
           Cancel
