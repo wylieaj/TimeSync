@@ -1,4 +1,6 @@
 import Button from "../Buttons/Button.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const SideBar = ({ allProjects, selectProjectFunc, func }) => {
   return (
@@ -18,9 +20,9 @@ const SideBar = ({ allProjects, selectProjectFunc, func }) => {
           {allProjects.projects.map((project) => {
             let projectClass = "";
             if (allProjects.contentState === project.id) {
-              projectClass = "text-lg text-stone-700 font-bold hover:text-stone-900 text-wrap";
+              projectClass = "text-sm text-stone-700 font-bold hover:text-stone-900 text-wrap";
             } else {
-              projectClass = "text-lg text-stone-500 hover:text-stone-900";
+              projectClass = "text-sm text-stone-500 hover:text-stone-900";
             }
             return (
               <button key={project.id} onClick={() => selectProjectFunc(project)} className={projectClass}>

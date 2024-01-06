@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const Timesheets = ({ timesheetObj, addTimesheet, deleteTimesheet }) => {
   const [isError, setIsError] = useState(false);
+
   const handleDeleteTimesheet = (timesheetId) => {
     setIsError(false);
     deleteTimesheet(timesheetId);

@@ -84,6 +84,24 @@ const App = () => {
     setState;
   };
 
+  const deleteProject = (projectId) => {
+    if (projectId === state.contentState) {
+      setState((prevState) => {
+        return {
+          ...prevState,
+          contentState: null,
+          projects: [prevState.projects.filter((project) => projectId !== project.id)],
+        };
+      });
+      setState((prevState) => {
+        return {
+          ...prevState,
+          timesheets: [prevState.timesheets.filter((ts) => projectId !== ts.projectId)],
+        };
+      });
+    }
+  };
+
   const displayProject = (selectedProject) => {
     setState((prevState) => {
       return {
@@ -105,6 +123,7 @@ const App = () => {
         timesheetObj={state.timesheets.filter((timesheet) => timesheet.projectId === state.contentState)}
         addTimesheet={addTimesheetEntry}
         deleteTimesheet={deleteTimesheetEntry}
+        deleteProject={deleteProject}
       />
     );
   }
@@ -113,7 +132,7 @@ const App = () => {
     <div
       className="flex
     ">
-      <SideBar allProjects={state} selectProjectFunc={displayProject} func={handleNewProject} />
+      <SideBar allProjects={state} selectProjectFunc={displayProject} func={handleNewProject} deleteProject={deleteProject} />
       {content}
     </div>
   );

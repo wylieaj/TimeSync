@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Timesheets from "../Timesheets/Timesheets";
 
-const SelectedProject = ({ projectObj, timesheetObj, addTimesheet, deleteTimesheet }) => {
+const SelectedProject = ({ projectObj, timesheetObj, addTimesheet, deleteTimesheet, deleteProject }) => {
   const formattedDate = new Date(projectObj.projectStartDate).toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "short",
@@ -31,6 +32,17 @@ const SelectedProject = ({ projectObj, timesheetObj, addTimesheet, deleteTimeshe
             <p className="text-stone-400">Dossier</p>
             <p className="text-lg text-stone-700 mb-2 font-bold">{projectObj.custDossier}</p>
           </div>
+        </div>
+        <div className="flex justify-end mb-4">
+          <button>
+            <FontAwesomeIcon
+              onClick={() => {
+                deleteProject(projectObj.id);
+              }}
+              icon={faTrash}
+              style={{ color: "#44403c" }}
+            />
+          </button>
         </div>
       </div>
       <Timesheets timesheetObj={timesheetObj} addTimesheet={addTimesheet} deleteTimesheet={deleteTimesheet} />
