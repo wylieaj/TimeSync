@@ -89,14 +89,14 @@ const App = () => {
       setState((prevState) => {
         return {
           ...prevState,
+          projects: prevState.projects.filter((project) => projectId !== project.id),
           contentState: null,
-          projects: [prevState.projects.filter((project) => projectId !== project.id)],
         };
       });
       setState((prevState) => {
         return {
           ...prevState,
-          timesheets: [prevState.timesheets.filter((ts) => projectId !== ts.projectId)],
+          timesheets: prevState.timesheets.filter((ts) => projectId !== ts.projectId),
         };
       });
     }
