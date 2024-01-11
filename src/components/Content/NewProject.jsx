@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
-import Button from "../Buttons/Button";
+import { useRef, useState, useContext } from "react";
+import { ProjectContext } from "../store/project-context";
 import Input from "../Inputs/Input";
 
-const NewProject = ({ addProject, cancelProject }) => {
+const NewProject = () => {
+  const { addProject, cancelProject } = useContext(ProjectContext);
   const [isError, setIsError] = useState(false);
 
   const nameRef = useRef();
@@ -47,7 +48,9 @@ const NewProject = ({ addProject, cancelProject }) => {
         </div>
       )}
       <div className="flex justify-center gap-24 mt-8">
-        <Button buttonLabel="Submit" func={submitProject} />
+        <button onClick={submitProject} className="text-lg text-stone-700 hover:text-green-600">
+          Submit
+        </button>
         <button onClick={cancelProject} className="text-lg text-stone-700 hover:text-red-600">
           Cancel
         </button>

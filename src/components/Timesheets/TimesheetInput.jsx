@@ -1,8 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ProjectContext } from "../store/project-context.jsx";
 
-const TimesheetInput = ({ addTimesheet, isErrorFunc, isError }) => {
+const TimesheetInput = ({ isErrorFunc, isError }) => {
+  const { addTimesheet } = useContext(ProjectContext);
   const [input, setInput] = useState({
     date: "",
     action: "",

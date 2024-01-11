@@ -1,10 +1,12 @@
 import TimesheetInput from "./TimesheetInput";
-
+import { ProjectContext } from "../store/project-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-const Timesheets = ({ timesheetObj, addTimesheet, deleteTimesheet }) => {
+const Timesheets = () => {
+  const { selectedProjectsTimesheets, deleteTimesheet } = useContext(ProjectContext);
+
   const [isError, setIsError] = useState(false);
 
   const handleDeleteTimesheet = (timesheetId) => {
@@ -19,12 +21,12 @@ const Timesheets = ({ timesheetObj, addTimesheet, deleteTimesheet }) => {
   return (
     <>
       <div className="">
-        <TimesheetInput addTimesheet={addTimesheet} isErrorFunc={updateIsError} isError={isError} />
+        <TimesheetInput isErrorFunc={updateIsError} isError={isError} />
       </div>
 
-      <div className={timesheetObj.length > 12 ? "overflow-y-scroll max-h-[31rem]" : "pr-4 "}>
-        {timesheetObj.length > 0 ? (
-          timesheetObj.map((ts) => {
+      <div className={selectedProjectsTimesheets.length > 12 ? "overflow-y-scroll max-h-[31rem]" : "pr-4 "}>
+        {selectedProjectsTimesheets.length > 0 ? (
+          selectedProjectsTimesheets.map((ts) => {
             const formattedDate = new Date(ts.date).toLocaleDateString("en-GB", {
               day: "2-digit",
               month: "2-digit",
