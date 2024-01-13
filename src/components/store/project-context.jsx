@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
 
 export const ProjectContext = createContext({
   contentState: null,
@@ -6,99 +6,124 @@ export const ProjectContext = createContext({
   timesheets: [],
 });
 
+function projectReducer(state, action) {
+  if (action.type === "ADD_TIMESHEET") {
+    const id = Math.random();
+    const newTimesheet = {
+      id: id,
+      projectId: state.contentState,
+      ...action.payload,
+    };
+    return {
+      ...state,
+      timesheets: [...state.timesheets, newTimesheet],
+    };
+  }
+
+  if (action.type === "DELETE_TIMESHEET") {
+    return {
+      ...state,
+      timesheets: state.timesheets.filter((ts) => action.payload !== ts.id),
+    };
+  }
+
+  if (action.type === "NEW_PROJECT_FORM") {
+    return {
+      ...state,
+      contentState: undefined,
+    };
+  }
+
+  if (action.type === "CANCEL_PROJECT") {
+    return {
+      ...state,
+      contentState: null,
+    };
+  }
+
+  if (action.type === "ADD_PROJECT") {
+    const prodId = Math.random();
+    return {
+      ...state,
+      projects: [...state.projects, { id: prodId, ...action.payload }],
+      contentState: prodId,
+    };
+  }
+
+  if (action.type === "DELETE_PROJECT") {
+    if (action.payload === state.contentState) {
+      return {
+        ...state,
+        timesheets: state.timesheets.filter((ts) => action.payload !== ts.projectId),
+        projects: state.projects.filter((project) => action.payload !== project.id),
+        contentState: null,
+      };
+    }
+  }
+
+  if (action.type === "DISPLAY_PROJECT") {
+    return {
+      ...state,
+      contentState: action.payload.id,
+    };
+  }
+  return state;
+}
+
 export function ProjectContextProvider({ children }) {
-  const [state, setState] = useState({
-    contentState: null,
-    projects: [],
-    timesheets: [],
-  });
+  const [projectState, dispatch] = useReducer(projectReducer, { contentState: null, projects: [], timesheets: [] });
 
   const addTimesheetEntry = (timesheetData) => {
-    const id = Math.random();
-    setState((prevState) => {
-      const newTimesheet = {
-        id: id,
-        projectId: prevState.contentState,
-        ...timesheetData,
-      };
-      return {
-        ...prevState,
-        timesheets: [...prevState.timesheets, newTimesheet],
-      };
+    dispatch({
+      type: "ADD_TIMESHEET",
+      payload: timesheetData,
     });
   };
 
   const deleteTimesheetEntry = (timesheetId) => {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        timesheets: prevState.timesheets.filter((ts) => timesheetId !== ts.id),
-      };
+    dispatch({
+      type: "DELETE_TIMESHEET",
+      payload: timesheetId,
     });
   };
 
   const handleNewProject = () => {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        contentState: undefined,
-      };
+    dispatch({
+      type: "NEW_PROJECT_FORM",
     });
   };
 
   const cancelNewProject = () => {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        contentState: null,
-      };
+    dispatch({
+      type: "CANCEL_PROJECT",
     });
   };
 
   const addProject = (projectData) => {
-    const prodId = Math.random();
-    setState((prevState) => {
-      return {
-        ...prevState,
-        projects: [...prevState.projects, { id: prodId, ...projectData }],
-
-        contentState: prodId,
-      };
+    dispatch({
+      type: "ADD_PROJECT",
+      payload: projectData,
     });
-    setState;
   };
 
   const deleteProject = (projectId) => {
-    if (projectId === state.contentState) {
-      setState((prevState) => {
-        return {
-          ...prevState,
-          projects: prevState.projects.filter((project) => projectId !== project.id),
-          contentState: null,
-        };
-      });
-      setState((prevState) => {
-        return {
-          ...prevState,
-          timesheets: prevState.timesheets.filter((ts) => projectId !== ts.projectId),
-        };
-      });
-    }
+    dispatch({
+      type: "DELETE_PROJECT",
+      payload: projectId,
+    });
   };
 
   const displayProject = (selectedProject) => {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        contentState: selectedProject.id,
-      };
+    dispatch({
+      type: "DISPLAY_PROJECT",
+      payload: selectedProject,
     });
   };
 
   const valueCtx = {
-    contentState: state.contentState,
-    projects: state.projects,
-    timesheets: state.timesheets,
+    contentState: projectState.contentState,
+    projects: projectState.projects,
+    timesheets: projectState.timesheets,
     displayProject: displayProject,
     createProject: handleNewProject,
     addProject: addProject,
@@ -106,8 +131,8 @@ export function ProjectContextProvider({ children }) {
     deleteProject: deleteProject,
     addTimesheet: addTimesheetEntry,
     deleteTimesheet: deleteTimesheetEntry,
-    selectedProject: state.projects.find((project) => project.id === state.contentState),
-    selectedProjectsTimesheets: state.timesheets.filter((timesheet) => timesheet.projectId === state.contentState),
+    selectedProject: projectState.projects.find((project) => project.id === projectState.contentState),
+    selectedProjectsTimesheets: projectState.timesheets.filter((timesheet) => timesheet.projectId === projectState.contentState),
   };
 
   return <ProjectContext.Provider value={valueCtx}>{children}</ProjectContext.Provider>;
